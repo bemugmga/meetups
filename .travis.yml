@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - "11"
+dist: trusty
+sudo: required
+
+branches:
+  only:
+  - master
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng lint
+  - npm run test-headless
+  - ng build --prod --base-href $BASE_REF
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/meetups
+  on:
+    branch: master

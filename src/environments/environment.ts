@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  GITHUB_SECRET: 'secret'
+  GITHUB_SECRET: 'secret',
+  clientId:'Iv1.4cee52ecf113eb72',
+  urlApiGit: 'https://api.github.com',
+  urlLoginGit: 'https://github.com/login/oauth/',
+  redirectUrl:'https://localhost:4200/'
 };
 
 /*

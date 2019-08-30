@@ -10,6 +10,12 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+<script>
+  let params =  new URLSearchParams(window.location.search);
+  if(params.has("code")){
+    localStorage.setItem("code", params.get("code"))
+  }
+</script>
 <body>
   <app-root></app-root>
 </body>

@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-blue-grey);
+$my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
+$bemug-primary: #b9acac;
+$bemug-second: #2d2a2a;
+$bemug-three: #6a6363;
+$bemug-white: #ffffff;
+
+.back-primary {
+    background-color: $bemug-primary;
+}
+
+.back-second {
+    background-color: $bemug-second;
+}
+
+.back-three {
+    background-color: $bemug-three
+}
+
+.back-white {
+    background-color: $bemug-white;
+}
+
+.txt-primary {
+    color: $bemug-primary;
+}
+
+.txt-second {
+    color: $bemug-second;
+}
+
+.txt-three {
+    color: $bemug-three
+}
+
+.txt-white {
+    color: $bemug-white;
+}
+
+.dot{
+    margin-top: 7.5px;
+    width: 15px;
+    height: 15px;
+    float: left;
+    border-radius: 100%;
+    margin-right: 6px;
+}
+
+.spaceLeft{
+    margin-left: 10px;
+}
+
+.padding{
+    padding: 20px;
+}

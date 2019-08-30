@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,6 @@ import { environment } from 'src/environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'meetups';
-  gitTest = environment.GITHUB_SECRET;
 
   ngOnInit(): void {}
 

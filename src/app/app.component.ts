@@ -7,12 +7,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
   title = 'meetups';
   gitTest = environment.GITHUB_SECRET;
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
 }

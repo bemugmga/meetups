@@ -9,7 +9,7 @@ branches:
   - master
 
 before_script:
-  - sed -ri "s/GITHUB_SECRET_KEY/$GITHUB_SECRET_KEY/" ./src/app/environment.prod.ts
+  - sed -ri "s/GITHUB_SECRET_KEY/$GITHUB_SECRET_KEY/" src/environments/environment.prod.ts
   - npm install -g @angular/cli
 
 script:

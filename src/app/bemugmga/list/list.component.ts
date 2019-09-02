@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
           element.themes = [];
           this.pubService.getComments(this.repository, element.number).subscribe(comments => {
             comments.forEach(comment => {
-              const uniqueReactions = [];
+              /*
               this.pubService.getReactions(this.repository, comment.id).subscribe(reactions => {
                 reactions.forEach(reaction => {
                   if ( !uniqueReactions.find(unique => unique.login === reaction.user.login) ) {
@@ -35,14 +35,15 @@ export class ListComponent implements OnInit {
               }, errorReaction => {
                 console.error('Ocorreu um erro ao obter as reactions', this.repository, comment.id);
               });
+              */
               element.themes.push({id: comment.id, author:
-                {login: comment.user.login, avatar: comment.user.avatar_url}, reactions: uniqueReactions});
+                {login: comment.user.login, avatar: comment.user.avatar_url}, reactions: comment.reactions, body: comment.body});
             });
           }, errorComment => {
             console.error('Ocorreu um erro ao obter os comentarios', this.repository, element.number);
           });
           element.themes.sort((itemA, itemB) => {
-            return itemA.reactions.length > itemB.reactions.length;
+            return itemA.reactions['+1'] > itemB.reactions['+1'];
           });
           this.issuesOpened.push(element);
         }
@@ -62,4 +63,10 @@ export class ListComponent implements OnInit {
     });
     return quando;
   }
+
+  public getTitle(text) {
+    const lines = text.split('\n');
+    return lines[0].replace('##', '');
+  }
+
 }

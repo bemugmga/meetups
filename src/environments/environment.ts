@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  GITHUB_SECRET: '7333c1634262cc61e79c94615464693c070abb6d',
+  GITHUB_TOKEN: 'https://token-github.herokuapp.com/v1/token',
   clientId: 'Iv1.4cee52ecf113eb72',
   urlApiGit: 'https://api.github.com',
   urlLoginGit: 'https://github.com/login/oauth/',

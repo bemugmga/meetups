@@ -19,11 +19,7 @@ export class GitAccessService {
   }
 
   generateCodeUser(auth) {
-    return this.httpClient.get<URLSearchParams>(environment.urlLoginGit + 'access_token?' +
-    'client_id=' + environment.clientId +
-    '&client_secret=' + environment.GITHUB_SECRET +
-    '&code=' + auth +
-    '&redirect_uri=' + environment.redirectUrl).toPromise();
+    return this.httpClient.get<any>(environment.GITHUB_TOKEN + '/' + auth);
   }
 
   getUserInfo() {

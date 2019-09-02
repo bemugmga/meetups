@@ -26,11 +26,9 @@
                             Há {{item.comments}} tema(s)
                         </mat-list-item>
                         <mat-list-item *ngFor="let theme of item.themes">
-                            <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
+                            <img src="{{theme.author.avatar}}" matTooltip="{{theme.author.login}} - Votes: {{theme.reactions['+1']}}" mat-list-icon mat-card-avatar>
                             <span>
-                                {{theme.id}}
-                                {{theme.author.login}}
-                                {{theme.reactions.length}}
+                                {{getTitle(theme.body)}}
                             </span>
                         </mat-list-item>    
                     </mat-list>

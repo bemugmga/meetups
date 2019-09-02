@@ -5,7 +5,7 @@ import { BemugmgaRoutingModule } from './bemugmga-routing.module';
 import { BemugmgaComponent } from './bemugmga.component';
 import { ListComponent } from './list/list.component';
 import { ItemComponent } from './item/item.component';
-import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule,  MatTooltipModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PublicGitService } from '../services/public-git.service';
@@ -22,7 +22,8 @@ import { PublicGitService } from '../services/public-git.service';
     MatCardModule,
     MatButtonModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [
     HttpClient,

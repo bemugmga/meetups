@@ -11,18 +11,26 @@ export class PublicGitService {
 
   constructor(private httpClient: HttpClient) { }
 
+  private httpOptions = { headers: new HttpHeaders({
+    Authorization : 'Bearer ' + localStorage.getItem('hashGit')
+  })};
+
   getIssues(identifier) {
-    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues');
+    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues', this.httpOptions);
   }
 
   getComments(identifier, idIssue) {
-    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/' + idIssue + '/comments');
+    const authorization = { headers: new HttpHeaders({
+      Accept: 'application/vnd.github.squirrel-girl-preview+json',
+      Authorization : 'Bearer ' + localStorage.getItem('hashGit')
+    })};
+    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/' + idIssue + '/comments', authorization);
   }
 
   getReactions(identifier, idComent) {
-    const httpOptions = { headers: new HttpHeaders({
-        Accept: 'application/vnd.github.squirrel-girl-preview+json'
-      })};
-    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/comments/' + idComent + '/reactions', httpOptions);
+    const typeResponse = { headers: new HttpHeaders({
+      Accept: 'application/vnd.github.squirrel-girl-preview+json',
+    })};
+    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/comments/' + idComent + '/reactions', typeResponse);
   }
 }

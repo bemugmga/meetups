@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PublicGitService } from 'src/app/services/public-git.service';
 
 @Component({
@@ -9,47 +9,61 @@ import { PublicGitService } from 'src/app/services/public-git.service';
 export class ListComponent implements OnInit {
 
   public infoText = 'Carregando...';
-  public issuesOpened = [];
-  public titleSubmissions = {};
+  public issuesOpened;
   public reactionSubmissions = {};
+  private detail = 0;
+  private issuesTemp = [];
   private repository = 'bemugmga/meetups';
 
-  constructor(private pubService: PublicGitService) { }
+  constructor(private pubService: PublicGitService, private changes: ChangeDetectorRef) {
+      this.pubService.getIssues(this.repository).subscribe(suc => {
+        suc.forEach(element => {
+          if (element.number !== 2) {
+            element.themes = [];
+            this.detail++;
+            this.pubService.getComments(this.repository, element.number).subscribe(comments => {
+              comments.forEach(comment => {
+                /*
+                this.pubService.getReactions(this.repository, comment.id).subscribe(reactions => {
+                  reactions.forEach(reaction => {
+                    if ( !uniqueReactions.find(unique => unique.login === reaction.user.login) ) {
+                      uniqueReactions.push({ login: reaction.user.login, avatar: reaction.user.avatar_url });
+                    }
+                  });
+                }, errorReaction => {
+                  console.error('Ocorreu um erro ao obter as reactions', this.repository, comment.id);
+                });
+                */
+                element.themes.push({id: comment.id, author:
+                  {login: comment.user.login, avatar: comment.user.avatar_url}, reactions: comment.reactions, body: comment.body});
+              });
+              this.detail--;
+            }, errorComment => {
+              console.error('Ocorreu um erro ao obter os comentarios', this.repository, element.number);
+              this.detail--;
+            });
+            element.themes.sort((itemA, itemB) => {
+              return itemA.reactions['+1'] > itemB.reactions['+1'];
+            });
+            this.issuesTemp.push(element);
+          }
+        });
+        this.verify();
+      }, error => this.infoText = 'Ocorreu um erro ao obter a lista de meetups');
+  }
 
   ngOnInit() {
-    this.pubService.getIssues(this.repository).subscribe(suc => {
-      this.issuesOpened = [];
-      this.titleSubmissions = [];
-      suc.forEach(element => {
-        if (element.number !== 2) {
-          element.themes = [];
-          this.pubService.getComments(this.repository, element.number).subscribe(comments => {
-            comments.forEach(comment => {
-              /*
-              this.pubService.getReactions(this.repository, comment.id).subscribe(reactions => {
-                reactions.forEach(reaction => {
-                  if ( !uniqueReactions.find(unique => unique.login === reaction.user.login) ) {
-                    uniqueReactions.push({ login: reaction.user.login, avatar: reaction.user.avatar_url });
-                  }
-                });
-              }, errorReaction => {
-                console.error('Ocorreu um erro ao obter as reactions', this.repository, comment.id);
-              });
-              */
-              element.themes.push({id: comment.id, author:
-                {login: comment.user.login, avatar: comment.user.avatar_url}, reactions: comment.reactions, body: comment.body});
-            });
-          }, errorComment => {
-            console.error('Ocorreu um erro ao obter os comentarios', this.repository, element.number);
-          });
-          element.themes.sort((itemA, itemB) => {
-            return itemA.reactions['+1'] > itemB.reactions['+1'];
-          });
-          this.issuesOpened.push(element);
-        }
-      });
+  }
+
+  private verify() {
+    setTimeout(() => {
+      if (this.detail > 0) {
+         this.verify ();
+      }
+      this.issuesOpened = this.issuesTemp;
       this.infoText = 'Ainda não foi submetido palestras';
-    }, error => this.infoText = 'Ocorreu um erro ao obter a lista de meetups');
+      this.changes.detectChanges();
+    }, 500);
   }
 
   public getQuando(text) {

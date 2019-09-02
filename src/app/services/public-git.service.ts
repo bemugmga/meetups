@@ -12,7 +12,7 @@ export class PublicGitService {
   constructor(private httpClient: HttpClient) { }
 
   private httpOptions = { headers: new HttpHeaders({
-    Authorization : 'Bearer ' + localStorage.getItem('hashGit')
+    Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
   })};
 
   getIssues(identifier) {
@@ -22,7 +22,7 @@ export class PublicGitService {
   getComments(identifier, idIssue) {
     const authorization = { headers: new HttpHeaders({
       Accept: 'application/vnd.github.squirrel-girl-preview+json',
-      Authorization : 'Bearer ' + localStorage.getItem('hashGit')
+      Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
     })};
     return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/' + idIssue + '/comments', authorization);
   }

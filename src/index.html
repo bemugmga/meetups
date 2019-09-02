@@ -14,7 +14,7 @@
 <script>
   let params =  new URLSearchParams(window.location.search);
   if(params.has("code")){
-    localStorage.setItem("code", params.get("code"))
+    sessionStorage.setItem("code", params.get("code"))
   }
 </script>
 <body>

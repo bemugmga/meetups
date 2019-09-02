@@ -24,7 +24,7 @@ export class GitAccessService {
 
   getUserInfo() {
     const httpOptions = { headers: new HttpHeaders({
-      Authorization : 'Bearer ' + localStorage.getItem('hashGit')
+      Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
     })};
     return this.httpClient.get<any>(this.urlUser, httpOptions);
   }

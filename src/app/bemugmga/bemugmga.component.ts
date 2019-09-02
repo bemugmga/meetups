@@ -12,16 +12,16 @@ export class BemugmgaComponent implements OnInit {
   @ViewChild('nameUser', {static: false}) nameUser: ElementRef;
 
   constructor(private gitAccess: GitAccessService, private router: Router) {
-    if (localStorage.getItem('code') ) {
-      this.gitAccess.generateCodeUser(localStorage.getItem('code')).subscribe(suc => {
-        localStorage.setItem('hashGit', suc.token);
+    if (sessionStorage.getItem('code') ) {
+      this.gitAccess.generateCodeUser(sessionStorage.getItem('code')).subscribe(suc => {
+        sessionStorage.setItem('hashGit', suc.token);
         this.getUserInfo();
       }, error => {
         this.gitAccess.redirectToPageLogin();
       });
-      localStorage.removeItem('code');
+      sessionStorage.removeItem('code');
     } else {
-      if (localStorage.getItem('hashGit') ) {
+      if (sessionStorage.getItem('hashGit') ) {
         this.getUserInfo();
       } else {
         this.gitAccess.redirectToPageLogin();
@@ -34,7 +34,7 @@ export class BemugmgaComponent implements OnInit {
       this.nameUser.nativeElement.innerText = suc.name;
     }, error => {
       console.log(error);
-      localStorage.removeItem('hashGit');
+      sessionStorage.removeItem('hashGit');
       this.gitAccess.redirectToPageLogin(); });
   }
 

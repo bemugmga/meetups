@@ -15,7 +15,7 @@ export class BemugmgaComponent implements OnInit {
     if (sessionStorage.getItem('code') ) {
       this.gitAccess.generateCodeUser(sessionStorage.getItem('code')).subscribe(suc => {
         sessionStorage.setItem('hashGit', suc.token);
-        this.getUserInfo();
+        window.location.reload();
       }, error => {
         this.gitAccess.redirectToPageLogin();
       });

@@ -3,6 +3,6 @@ export const environment = {
   GITHUB_SECRET: 'GITHUB_SECRET_KEY',
   clientId: 'Iv1.4cee52ecf113eb72',
   urlApiGit: 'https://api.github.com',
-  urlLoginGit: 'http://github.com/login/oauth/',
+  urlLoginGit: 'https://github.com/login/oauth/',
   redirectUrl: 'REDIRECT_URL'
 };

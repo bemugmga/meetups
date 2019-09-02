@@ -10,6 +10,7 @@ branches:
 
 before_script:
   - sed -ri "s/GITHUB_SECRET_KEY/$GITHUB_SECRET_KEY/" src/environments/environment.prod.ts
+  - sed -ri "s/REDIRECT_URL/$BASE_REF/" src/environments/environment.prod.ts
   - npm install -g @angular/cli
 
 script:

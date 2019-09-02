@@ -4,9 +4,8 @@ import { BemugmgaComponent } from './bemugmga.component';
 import { ListComponent } from './list/list.component';
 import { ItemComponent } from './item/item.component';
 
-const routes: Routes = [
-  { 
-  path: 'bemugmga', 
+const routes: Routes = [{
+  path: 'bemugmga',
   component: BemugmgaComponent,
     children: [
       {

@@ -24,7 +24,7 @@ import { PublicGitService } from '../services/public-git.service';
     MatListModule,
     MatIconModule
   ],
-  providers:[
+  providers: [
     HttpClient,
     PublicGitService
   ]

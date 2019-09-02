@@ -8,34 +8,32 @@ import { GitAccessService } from '../services/git-access.service';
 })
 export class BemugmgaComponent implements OnInit {
 
-  public name = "Não logado";
+  public name = 'Não logado';
 
-  constructor(private _gitAccess:GitAccessService) { 
-    if(localStorage.getItem("code")){
-      this._gitAccess.generateCodeUser(localStorage.getItem("code")).subscribe(suc=>{
-        localStorage.setItem("hashGit",new URLSearchParams(suc).get("access_token"))
-      }, error=>{
-        this._gitAccess.redirectToPageLogin();
-      })
-      localStorage.removeItem("code");
+  constructor(private gitAccess: GitAccessService) {
+    if (localStorage.getItem('code') ) {
+      this.gitAccess.generateCodeUser(localStorage.getItem('code')).then(suc => {
+        localStorage.setItem('hashGit', suc.get('access_token'));
+      }).catch(error => {
+        console.log(error);
+      });
+      localStorage.removeItem('code');
     } else {
-      if(localStorage.getItem("hashGit")){
-        this._gitAccess.getUserInfo().subscribe(suc=>{
-          this.name = suc.name
-        }, error=>{
-          localStorage.removeItem("hashGit");
-          this._gitAccess.redirectToPageLogin();  
-        })
+      if (localStorage.getItem('hashGit') ) {
+        this.gitAccess.getUserInfo().subscribe(suc => {
+          this.name = suc.name;
+        }, error => {
+          console.log(error);
+          localStorage.removeItem('hashGit');
+          this.gitAccess.redirectToPageLogin(); });
       } else {
-        this._gitAccess.redirectToPageLogin();
+        this.gitAccess.redirectToPageLogin();
       }
     }
-
   }
 
   ngOnInit() {
     document.body.style.backgroundColor = '#2d2a2a';
   }
-
-  
 }
+

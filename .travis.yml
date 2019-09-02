@@ -9,7 +9,7 @@ branches:
   - master
 
 before_script:
-  - sed -ri "s+GITHUB_TOKEN+$GITHUB_URL_TOKEN+" src/environments/environment.prod.ts
+  - sed -ri "s+GITHUB_URL_TOKEN+$GITHUB_URL_TOKEN+" src/environments/environment.prod.ts
   - sed -ri "s+REDIRECT_URL+$BASE_REF+" src/environments/environment.prod.ts
   - npm install -g @angular/cli
 

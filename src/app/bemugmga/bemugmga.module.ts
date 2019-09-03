@@ -11,6 +11,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PublicGitService } from '../services/public-git.service';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
+import { GitAccessService } from '../services/git-access.service';
 
 @NgModule({
   declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent],
@@ -30,7 +31,8 @@ import { ItemDialogComponent } from './item-dialog/item-dialog.component';
   ],
   providers: [
     HttpClient,
-    PublicGitService
+    PublicGitService,
+    GitAccessService
   ],
   entryComponents: [ ItemDialogComponent ]
 })

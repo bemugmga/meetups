@@ -4,15 +4,16 @@ import { CommonModule } from '@angular/common';
 import { BemugmgaRoutingModule } from './bemugmga-routing.module';
 import { BemugmgaComponent } from './bemugmga.component';
 import { ListComponent } from './list/list.component';
-import { ItemComponent } from './item/item.component';
-import { MatToolbarModule, MatCardModule, MatButtonModule, MatListModule, MatIconModule,  MatTooltipModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatButtonModule,
+         MatListModule, MatIconModule,  MatTooltipModule, MatDialogModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PublicGitService } from '../services/public-git.service';
-
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 
 @NgModule({
-  declarations: [BemugmgaComponent, ListComponent, ItemComponent],
+  declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -23,11 +24,14 @@ import { PublicGitService } from '../services/public-git.service';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MarkdownModule.forChild(),
+    MatDialogModule
   ],
   providers: [
     HttpClient,
     PublicGitService
-  ]
+  ],
+  entryComponents: [ ItemDialogComponent ]
 })
 export class BemugmgaModule { }

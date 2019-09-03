@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class BemugmgaComponent implements OnInit {
 
-  @ViewChild('nameUser', {static: false}) nameUser: ElementRef;
+  public nameUser = 'Não Logado';
 
   constructor(private gitAccess: GitAccessService, private router: Router) {
     if (sessionStorage.getItem('code') ) {
@@ -31,7 +31,7 @@ export class BemugmgaComponent implements OnInit {
 
   private getUserInfo() {
     this.gitAccess.getUserInfo().subscribe(suc => {
-      this.nameUser.nativeElement.innerText = suc.name;
+      this.nameUser = suc.name;
     }, error => {
       console.log(error);
       sessionStorage.removeItem('hashGit');

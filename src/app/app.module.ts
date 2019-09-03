@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BemugmgaModule } from './bemugmga/bemugmga.module';
+import { MarkdownModule } from 'ngx-markdown';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { BemugmgaModule } from './bemugmga/bemugmga.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    BemugmgaModule
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

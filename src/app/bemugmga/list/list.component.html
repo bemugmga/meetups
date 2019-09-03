@@ -1,5 +1,5 @@
-<div *ngIf="!issuesOpened" fxLayoutAlign="center center" >
-    <h2 class="txt-white">{{infoText}}</h2>
+<div *ngIf="issuesOpened.length==0" fxLayoutAlign="center center" >
+    <h2 class="txt-white">Carregando.... {{issuesOpened}}</h2>
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="start" >
     <mat-card *ngFor="let item of issuesOpened" fxFlex class="item-size">
@@ -9,17 +9,17 @@
             <mat-card-subtitle>{{item.user.login}} - {{getQuando(item.body)}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <mat-list *ngIf="item.comments==0">
+            <mat-list *ngIf="item.comments == 0">
                 <mat-list-item>
-                        <mat-icon mat-list-icon>close</mat-icon>
-                        <h4>{{infoText}} </h4>
+                    <mat-icon mat-list-icon>close</mat-icon>
+                    <h4>Não há temas submetidos ainda =(</h4>
                 </mat-list-item>
             </mat-list>
-            <mat-list *ngIf="item.comments>0">
+            <mat-list *ngIf="item.comments > 0">
                 <mat-list-item>
                     Há {{item.comments}} tema(s)
                 </mat-list-item>
-                <mat-list-item *ngFor="let theme of item.themes">
+                <mat-list-item *ngFor="let theme of item.themes" (click)="detailInfo(theme)">
                     <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
                     <span fxFlexOffset="10px">
                         <span mat-line> {{getTitle(theme.body)}}</span>
@@ -28,9 +28,5 @@
                 </mat-list-item>    
             </mat-list>
         </mat-card-content>
-        <!--mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-        </mat-card-actions-->
     </mat-card>
 </div>                 

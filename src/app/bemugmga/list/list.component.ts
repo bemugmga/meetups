@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ViewEncapsulation, ChangeDetectio
 import { PublicGitService } from 'src/app/services/public-git.service';
 import { MatDialog } from '@angular/material';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
+import { ItemEventInsertComponent } from '../item-event-insert/item-event-insert.component';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ListComponent implements OnInit {
 
   public issuesOpened = [];
   public reactionSubmissions = {};
-  private repository = 'bemugmga/meetups';
+  private repository = 'arthurfritz/meetups';
   public infoStatus = 'Carregando....';
 
   constructor(private pubService: PublicGitService, private dialog: MatDialog, private zone: NgZone) {
@@ -46,14 +47,20 @@ export class ListComponent implements OnInit {
             this.zone.run(() => {
               this.issuesOpened.push(element);
             });
+            console.log(this.issuesOpened);
           }, errorComment => {
             console.error('Ocorreu um erro ao obter os comentarios', this.repository, element.number);
           });
         }
       });
-    }, error =>  this.zone.run( () => {
-      this.infoStatus = 'Ocorreu um erro ao obter a lista de meetups';
-    }));
+      this.zone.run(() => {
+        this.infoStatus = '';
+      });
+    }, error =>  {
+      this.zone.run(() => {
+        this.infoStatus = 'Ocorreu um erro ao obter a lista de meetups';
+      });
+    });
   }
 
   public getQuando(text) {
@@ -77,6 +84,16 @@ export class ListComponent implements OnInit {
     const dialogRef = this.dialog.open(ItemDialogComponent, { data: theme, disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  public insertNewEvent() {
+    const dialogRef = this.dialog.open(ItemEventInsertComponent, {disableClose: true});
+    dialogRef.afterClosed().subscribe(result => {
+      this.issuesOpened = [];
+      this.reactionSubmissions = {};
+      this.infoStatus = 'Carregando....';
+      this.ngOnInit();
     });
   }
 

@@ -1,7 +1,17 @@
 <div *ngIf="issuesOpened.length==0" fxLayoutAlign="center center" >
-    <h2 class="txt-white">{{infoStatus}}</h2>
+    <h2 class="txt-white">{{infoStatus}}</h2>   
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="start" >
+    <mat-card fxFlex class="item-size">
+        <mat-card-header>
+            <mat-card-title>Quer sugerir uma data de evento?</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions>
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="end">
+                <button mat-button color="warn" (click)="insertNewEvent()">  <mat-icon>schedule</mat-icon> CADASTRAR </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
     <mat-card *ngFor="let item of issuesOpened" fxFlex class="item-size">
         <mat-card-header>
             <img src="{{item.user.avatar_url}}" mat-card-avatar>

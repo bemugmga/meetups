@@ -5,16 +5,20 @@ import { BemugmgaRoutingModule } from './bemugmga-routing.module';
 import { BemugmgaComponent } from './bemugmga.component';
 import { ListComponent } from './list/list.component';
 import { MatToolbarModule, MatCardModule, MatButtonModule,
-         MatListModule, MatIconModule,  MatTooltipModule, MatDialogModule } from '@angular/material';
+         MatListModule, MatIconModule,  MatTooltipModule,
+         MatDialogModule, MatInputModule, MatFormFieldModule,
+         MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PublicGitService } from '../services/public-git.service';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { GitAccessService } from '../services/git-access.service';
+import { ItemEventInsertComponent } from './item-event-insert/item-event-insert.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent],
+  declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent, ItemEventInsertComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -27,13 +31,21 @@ import { GitAccessService } from '../services/git-access.service';
     MatIconModule,
     MatTooltipModule,
     MarkdownModule.forChild(),
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     HttpClient,
     PublicGitService,
-    GitAccessService
+    GitAccessService,
+    FormBuilder,
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
   ],
-  entryComponents: [ ItemDialogComponent ]
+  entryComponents: [ ItemDialogComponent, ItemEventInsertComponent ]
 })
 export class BemugmgaModule { }

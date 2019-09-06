@@ -1,5 +1,5 @@
 <div *ngIf="issuesOpened.length==0" fxLayoutAlign="center center" >
-    <h2 class="txt-white">Carregando.... {{issuesOpened}}</h2>
+    <h2 class="txt-white">{{infoStatus}}</h2>
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="start" >
     <mat-card *ngFor="let item of issuesOpened" fxFlex class="item-size">

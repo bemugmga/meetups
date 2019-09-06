@@ -14,6 +14,7 @@ export class ListComponent implements OnInit {
   public issuesOpened = [];
   public reactionSubmissions = {};
   private repository = 'bemugmga/meetups';
+  public infoStatus = 'Carregando....';
 
   constructor(private pubService: PublicGitService, private dialog: MatDialog, private zone: NgZone) {
   }
@@ -50,7 +51,9 @@ export class ListComponent implements OnInit {
           });
         }
       });
-    }, error => alert('Ocorreu um erro ao obter a lista de meetups'));
+    }, error =>  this.zone.run( () => {
+      this.infoStatus = 'Ocorreu um erro ao obter a lista de meetups';
+    }));
   }
 
   public getQuando(text) {

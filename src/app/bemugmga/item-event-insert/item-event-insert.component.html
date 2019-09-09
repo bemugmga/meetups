@@ -23,8 +23,8 @@
         <p>As palestras serão submetidas e votadas :)</p>
         
         <br/>
-        <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between">
-            <button *ngIf="noRequest" autofocus mat-button (click)="addNewIssue()" color="primary" [disabled]="!form.valid"> <mat-icon>save</mat-icon> CRIAR </button>
+        <div fxLayout="row" *ngIf="noRequest" fxFlex="100" fxLayoutAlign="space-between">
+            <button autofocus mat-button (click)="addNewIssue()" color="primary" [disabled]="!form.valid"> <mat-icon>save</mat-icon> CRIAR </button>
             <button mat-button mat-dialog-close color="warn"> <mat-icon>close</mat-icon> CANCELAR </button>
         </div>
     </form>

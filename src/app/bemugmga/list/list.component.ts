@@ -85,18 +85,23 @@ export class ListComponent implements OnInit {
   public detailInfo(theme) {
     const dialogRef = this.dialog.open(ItemDialogComponent, { data: theme, disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.reloadInfos(result);
     });
   }
 
   public insertNewEvent() {
     const dialogRef = this.dialog.open(ItemEventInsertComponent, {disableClose: true});
     dialogRef.afterClosed().subscribe(result => {
+      this.reloadInfos(result);
+    });
+  }
+
+  private reloadInfos(result) {
+    if (result) {
       this.issuesOpened = [];
       this.reactionSubmissions = {};
       this.infoStatus = 'Carregando....';
       this.ngOnInit();
-    });
+    }
   }
-
 }

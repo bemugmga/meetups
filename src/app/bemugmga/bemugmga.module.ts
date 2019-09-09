@@ -16,9 +16,10 @@ import { ItemDialogComponent } from './item-dialog/item-dialog.component';
 import { GitAccessService } from '../services/git-access.service';
 import { ItemEventInsertComponent } from './item-event-insert/item-event-insert.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ItemThemeInsertComponent } from './item-theme-insert/item-theme-insert.component';
 
 @NgModule({
-  declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent, ItemEventInsertComponent],
+  declarations: [BemugmgaComponent, ListComponent, ItemDialogComponent, ItemEventInsertComponent, ItemThemeInsertComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -46,6 +47,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormBuilder,
     {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
   ],
-  entryComponents: [ ItemDialogComponent, ItemEventInsertComponent ]
+  entryComponents: [ ItemDialogComponent, ItemEventInsertComponent, ItemThemeInsertComponent ]
 })
 export class BemugmgaModule { }

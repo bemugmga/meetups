@@ -62,7 +62,7 @@ export class ItemEventInsertComponent implements OnInit {
           this.gitService.addIssue(environment.repoBemug, data).subscribe(sucess => {
               this.zone.run(() => {
                 this.noRequest = true;
-                this.dialogRef.close();
+                this.dialogRef.close(true);
               });
           }, error => {
             this.zone.run(() => {

@@ -29,7 +29,7 @@
                 <mat-list-item>
                     Há {{item.comments}} tema(s)
                 </mat-list-item>
-                <mat-list-item *ngFor="let theme of item.themes" (click)="detailInfo(theme)">
+                <mat-list-item *ngFor="let theme of item.themes" (click)="detailInfo(theme)" class="cursor">
                     <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
                     <span fxFlexOffset="10px">
                         <span mat-line> {{getTitle(theme.body)}}</span>

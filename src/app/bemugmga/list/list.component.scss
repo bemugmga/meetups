@@ -3,6 +3,10 @@
 .item-size {
     margin-top: 10px;
     margin-left: 20px;
-    min-width: 300px;
+    min-width: 270px;
     max-width: 450px;
+}
+mat-card#cadastro {
+    height: 120px;
+    min-height: 0px!important;
 }

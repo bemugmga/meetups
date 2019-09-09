@@ -3,6 +3,7 @@ import { PublicGitService } from 'src/app/services/public-git.service';
 import { MatDialog } from '@angular/material';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { ItemEventInsertComponent } from '../item-event-insert/item-event-insert.component';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -14,18 +15,18 @@ export class ListComponent implements OnInit {
 
   public issuesOpened = [];
   public reactionSubmissions = {};
-  private repository = 'arthurfritz/meetups';
   public infoStatus = 'Carregando....';
 
   constructor(private pubService: PublicGitService, private dialog: MatDialog, private zone: NgZone) {
   }
 
   ngOnInit() {
-    this.pubService.getIssues(this.repository).subscribe(suc => {
+    this.pubService.getIssues(environment.repoBemug).subscribe(suc => {
+      const tempElements = [];
       suc.forEach(element => {
         if (element.number !== 2) {
           element.themes = [];
-          this.pubService.getComments(this.repository, element.number).subscribe(comments => {
+          this.pubService.getComments(environment.repoBemug, element.number).subscribe(comments => {
             comments.forEach(comment => {
               /*
               this.pubService.getReactions(this.repository, comment.id).subscribe(reactions => {
@@ -45,11 +46,12 @@ export class ListComponent implements OnInit {
               return itemA.reactions['+1'] > itemB.reactions['+1'];
             });
             this.zone.run(() => {
-              this.issuesOpened.push(element);
+              tempElements.push(element);
+              tempElements.sort((itemA, itemB) => itemA.number < itemB.number ? 1 : -1);
+              this.issuesOpened = tempElements;
             });
-            console.log(this.issuesOpened);
           }, errorComment => {
-            console.error('Ocorreu um erro ao obter os comentarios', this.repository, element.number);
+            console.error('Ocorreu um erro ao obter os comentarios', environment.repoBemug, element.number);
           });
         }
       });

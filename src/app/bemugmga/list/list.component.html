@@ -2,7 +2,7 @@
     <h2 class="txt-white">{{infoStatus}}</h2>   
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="start" >
-    <mat-card fxFlex class="item-size">
+    <mat-card fxFlex class="item-size" >
         <mat-card-header>
             <mat-card-title>Quer sugerir uma data de evento?</mat-card-title>
         </mat-card-header>
@@ -38,5 +38,10 @@
                 </mat-list-item>    
             </mat-list>
         </mat-card-content>
+        <mat-card-actions *ngIf="!item.locked">
+            <div fxLayout="row" fxFlex="100" fxLayoutAlign="end">
+                <button mat-button color="warn" (click)="insertNewTheme()">  <mat-icon>edit</mat-icon> Submeter tema </button>
+            </div>
+        </mat-card-actions>
     </mat-card>
 </div>                 

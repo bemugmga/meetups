@@ -1,5 +1,7 @@
 import { Component,  Inject } from '@angular/core';
 import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { GitAccessService } from 'src/app/services/git-access.service';
+import { PublicGitService } from 'src/app/services/public-git.service';
 
 @Component({
   selector: 'app-item-dialog',
@@ -8,6 +10,10 @@ import { MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class ItemDialogComponent  {
 
-   constructor(@Inject(MAT_DIALOG_DATA) public theme) {}
+   constructor(@Inject(MAT_DIALOG_DATA) public theme, private gitService: PublicGitService) {}
+
+   voteIssue() {
+
+   }
 
 }

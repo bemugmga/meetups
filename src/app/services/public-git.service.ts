@@ -19,6 +19,18 @@ export class PublicGitService {
     return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues', this.httpOptions);
   }
 
+  getAllIssues(identifier) {
+    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues?state=all', this.httpOptions);
+  }
+
+  addIssue(identifier, data) {
+    const authorization = { headers: new HttpHeaders({
+      Accept: 'application/vnd.github.symmetra-preview+json',
+      Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
+    })};
+    return this.httpClient.post<any>(this.urlRepos + '/' + identifier + '/issues', data, authorization);
+  }
+
   getComments(identifier, idIssue) {
     const authorization = { headers: new HttpHeaders({
       Accept: 'application/vnd.github.squirrel-girl-preview+json',

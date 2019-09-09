@@ -8,7 +8,8 @@ export const environment = {
   clientId: 'Iv1.4cee52ecf113eb72',
   urlApiGit: 'https://api.github.com',
   urlLoginGit: 'https://github.com/login/oauth/',
-  redirectUrl: 'https://localhost:4200/'
+  redirectUrl: 'https://localhost:4200/',
+  repoBemug: 'arthurfritz/EducaMais-Front'
 };
 
 /*

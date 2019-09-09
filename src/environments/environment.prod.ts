@@ -4,5 +4,6 @@ export const environment = {
   clientId: 'Iv1.4cee52ecf113eb72',
   urlApiGit: 'https://api.github.com',
   urlLoginGit: 'https://github.com/login/oauth/',
-  redirectUrl: 'REDIRECT_URL'
+  redirectUrl: 'REDIRECT_URL',
+  repoBemug: 'bemugmga/meetups'
 };

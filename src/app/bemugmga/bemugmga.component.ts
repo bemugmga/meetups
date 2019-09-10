@@ -32,6 +32,7 @@ export class BemugmgaComponent implements OnInit {
   private getUserInfo() {
     this.gitAccess.getUserInfo().subscribe(suc => {
       this.nameUser = suc.name;
+      this.gitAccess.setUser(suc.name);
     }, error => {
       console.log(error);
       sessionStorage.removeItem('hashGit');

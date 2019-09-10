@@ -8,8 +8,8 @@ import { URLSearchParams } from 'url';
 })
 export class GitAccessService {
 
-  private urlRepos =  environment.urlApiGit + '/repos';
   private urlUser =  environment.urlApiGit + '/user';
+  private userActive = null;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -28,5 +28,14 @@ export class GitAccessService {
     })};
     return this.httpClient.get<any>(this.urlUser, httpOptions);
   }
+
+  setUser(user) {
+    this.userActive = user;
+  }
+
+  getUser() {
+    return this.userActive;
+  }
+
 }
 

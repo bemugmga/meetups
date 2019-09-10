@@ -25,9 +25,9 @@
                     <h4>Não há temas submetidos ainda =(</h4>
                 </mat-list-item>
             </mat-list>
-            <mat-list *ngIf="item.comments > 0">
+            <mat-list *ngIf="item.themes?.length > 0">
                 <mat-list-item>
-                    Há {{item.comments}} tema(s)
+                    Há {{item.themes?.length}} tema(s)
                 </mat-list-item>
                 <mat-list-item *ngFor="let theme of item.themes" (click)="detailInfo(theme)" class="cursor">
                     <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
@@ -40,7 +40,7 @@
         </mat-card-content>
         <mat-card-actions *ngIf="!item.locked">
             <div fxLayout="row" fxFlex="100" fxLayoutAlign="end">
-                <button mat-button color="warn" (click)="insertNewTheme()">  <mat-icon>edit</mat-icon> Submeter tema </button>
+                <button mat-button color="warn" (click)="insertNewTheme(item)">  <mat-icon>edit</mat-icon> Submeter tema </button>
             </div>
         </mat-card-actions>
     </mat-card>

@@ -31,6 +31,10 @@ export class PublicGitService {
     return this.httpClient.post<any>(this.urlRepos + '/' + identifier + '/issues', data, authorization);
   }
 
+  addComment(identifier, idIssue , data) {
+    return this.httpClient.post<any>(this.urlRepos + '/' + identifier + '/issues/' + idIssue + '/comments', data, this.httpOptions);
+  }
+
   getComments(identifier, idIssue) {
     const authorization = { headers: new HttpHeaders({
       Accept: 'application/vnd.github.squirrel-girl-preview+json',

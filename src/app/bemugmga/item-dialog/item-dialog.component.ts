@@ -13,9 +13,6 @@ export class ItemDialogComponent  {
    constructor( @Inject(MAT_DIALOG_DATA) public theme,
                 private gitService: PublicGitService,
                 private dialogRef: MatDialogRef<ItemDialogComponent>) {
-
-    console.log(theme);
-
    }
 
    voteIssue() {

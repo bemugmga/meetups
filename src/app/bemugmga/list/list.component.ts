@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { ItemEventInsertComponent } from '../item-event-insert/item-event-insert.component';
 import { environment } from 'src/environments/environment';
+import { ItemThemeInsertComponent } from '../item-theme-insert/item-theme-insert.component';
 
 
 @Component({
@@ -91,6 +92,13 @@ export class ListComponent implements OnInit {
 
   public insertNewEvent() {
     const dialogRef = this.dialog.open(ItemEventInsertComponent, {disableClose: true});
+    dialogRef.afterClosed().subscribe(result => {
+      this.reloadInfos(result);
+    });
+  }
+
+  public insertNewTheme(info) {
+    const dialogRef = this.dialog.open(ItemThemeInsertComponent, {data: info, disableClose: true});
     dialogRef.afterClosed().subscribe(result => {
       this.reloadInfos(result);
     });

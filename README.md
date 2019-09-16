@@ -6,4 +6,4 @@ Manager of meetups, its friendly front-end
 
 [Github.io](https://bemugmga.github.io/meetups/#/bemugmga)  
 
-https://bemugmga.github.io/meetups/#/bemugmga
+https://bemugmga.github.io/meetups/#/bemugmga 

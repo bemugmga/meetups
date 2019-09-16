@@ -1,0 +1,33 @@
+<mat-dialog-content>
+    <div fxLayout="column">
+        <h3>Novo evento...</h3>
+        <form [formGroup]="form" fxLayout="column">
+            <mat-form-field> 
+                <input matInput (keypress)="openCalendar(dateEvent);" formControlName="dtEvent" [matDatepicker]="dateEvent" placeholder="Quando">
+                <mat-datepicker-toggle matSuffix [for]="dateEvent"></mat-datepicker-toggle>
+                <mat-datepicker #dateEvent touchUi="true"></mat-datepicker>
+                <mat-error *ngIf="form.controls['dtEvent'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field >
+                <input matInput placeholder="Horário" formControlName="hour">
+                <mat-hint>Exp.: 19:00 , A definir</mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field >
+                <input matInput placeholder="Onde" formControlName="where">
+                <mat-hint>Exp.: DB1, TECNOSPEED, AIQFOME, A Definir</mat-hint>
+            </mat-form-field>
+
+            <p>As palestras serão submetidas e votadas :)</p>
+            
+            <br/>
+            <div fxLayout="row" *ngIf="noRequest" fxFlex="100" fxLayoutAlign="space-between">
+                <button autofocus mat-button (click)="addNewIssue()" color="primary" [disabled]="!form.valid"> <mat-icon>save</mat-icon> CRIAR </button>
+                <button mat-button mat-dialog-close color="warn"> <mat-icon>close</mat-icon> CANCELAR </button>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>

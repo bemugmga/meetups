@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "11"
+dist: trusty
+sudo: required
+
+branches:
+  only:
+  - master
+
+before_script:
+  - sed -ri "s+GITHUB_URL_TOKEN+$GITHUB_URL_TOKEN+" src/environments/environment.prod.ts
+  - sed -ri "s+REDIRECT_URL+$BASE_REF+" src/environments/environment.prod.ts
+  - npm install -g @angular/cli
+
+script:
+  - ng lint
+  - ng build --aot --prod --base-href $BASE_REF
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/meetups
+  on:
+    branch: master

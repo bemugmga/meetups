@@ -1,0 +1,54 @@
+<mat-dialog-content class="minWidth">
+    <div fxLayout="column">
+        <h3 align="center">Novo tema</h3>
+        <form [formGroup]="form" fxLayout="column">
+            <mat-form-field>
+                <input matInput placeholder="Título" formControlName="title">
+                <mat-error *ngIf="form.controls['title'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Nome" formControlName="name">
+                <button mat-button *ngIf="form.controls['name'].value" matSuffix mat-icon-button aria-label="Clear" (click)="form.controls['name'].setValue(null)">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Nível da palestra</mat-label>
+                <mat-select formControlName="level">
+                    <mat-option value="iniciante">Iniciante</mat-option>
+                    <mat-option value="intermediario">Intermediário</mat-option>
+                    <mat-option value="avancado">Avançado</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['level'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Tempo" formControlName="time">
+                <mat-error *ngIf="form.controls['time'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <textarea matInput placeholder="Abstract" formControlName="abstract"></textarea>
+                <mat-error *ngIf="form.controls['abstract'].hasError('required')">
+                    Campo obrigatório
+                </mat-error>
+            </mat-form-field>            
+            <br/>
+            <div fxLayout="row" *ngIf="noRequest" fxFlex="100" fxLayoutAlign="space-between">
+                <button autofocus mat-button (click)="addNewTheme()" color="primary" [disabled]="!form.valid"> <mat-icon>save</mat-icon> CRIAR </button>
+                <button mat-button mat-dialog-close color="warn"> <mat-icon>close</mat-icon> CANCELAR </button>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>

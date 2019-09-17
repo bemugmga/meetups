@@ -48,7 +48,7 @@ export class PublicGitService {
       Accept: 'application/vnd.github.squirrel-girl-preview+json',
       Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
     })};
-    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/comments/' + idComent + '/reactions', typeResponse);
+    return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/comments/' + idComent + '/reactions?noCache='+ new Date().getTime(), typeResponse);
   }
 
   voteReaction(identifier, idComent) {

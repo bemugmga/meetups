@@ -38,11 +38,11 @@
                                 <span mat-line> {{theme.author.login}}</span>
                             </span>
                             <span fxFlexAlign="end" fxLayout="row">
-                                <button mat-icon-button color="warn"  *ngIf="votedInTheme(theme);else removeVote" (click)="removeVoteInTheme(theme)" matTooltip="Remover voto" >
+                                <button mat-icon-button color="warn" [disabled]="actionVote" *ngIf="votedInTheme(theme);else removeVote" (click)="removeVoteInTheme(theme)" matTooltip="Remover voto" >
                                     <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_down_alt</mat-icon>
                                 </button>
                                 <ng-template #removeVote>
-                                    <button (click)="voteInTheme(theme)" mat-icon-button color="primary" matTooltip="Votar" >
+                                    <button (click)="voteInTheme(theme)" [disabled]="actionVote" mat-icon-button color="primary" matTooltip="Votar" >
                                         <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_up_alt</mat-icon>
                                     </button>            
                                 </ng-template>

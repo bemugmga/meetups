@@ -18,6 +18,7 @@ export class ListComponent implements OnInit {
   public issuesOpened = [];
   public reactionSubmissions = {};
   public infoStatus = 'Carregando....';
+  public actionVote = false;
 
   constructor(private pubService: PublicGitService,
               private dialog: MatDialog,
@@ -104,19 +105,27 @@ export class ListComponent implements OnInit {
   }
 
   public voteInTheme(theme) {
+    this.zone.run(() => {
+      this.actionVote = true;
+    });
     this.pubService.voteReaction(environment.repoBemug, theme.id).subscribe(suc => {
       this.reloadThisTheme(theme);
     }, error => {
+      this.zone.run(() => { this.actionVote = false; });
       alert('Ocorreu um erro ao tentar votar');
       console.log(error);
     });
   }
 
   public removeVoteInTheme(theme) {
+    this.zone.run(() => {
+      this.actionVote = true;
+    });
     this.reactionSubmissions[theme.id].filter(item => item.user.login === this.accessGitService.getUser().login).forEach(item => {
       this.pubService.removeReaction(item.id).subscribe(suc => {
         this.reloadThisTheme(theme);
       }, error => {
+        this.zone.run(() => { this.actionVote = false; });
         alert('Ocorreu um erro ao remover o voto');
         console.log(error);
       });
@@ -134,7 +143,12 @@ export class ListComponent implements OnInit {
         });
       });
       this.zone.run(() => {
-        theme.reactions['+1'] = this.reactionSubmissions[theme.id].length;
+        this.issuesOpened.forEach(item => {
+          item.themes.filter(innerItem => innerItem.id === theme.id).forEach(innerItem => {
+            innerItem.reactions['+1'] = this.reactionSubmissions[theme.id].length;
+          });
+        });
+        this.actionVote = false;
       });
     }, errorReaction => {
       console.error('Ocorreu um erro ao obter as reactions', environment.repoBemug, theme.id);

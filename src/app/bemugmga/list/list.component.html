@@ -29,12 +29,29 @@
                 <mat-list-item>
                     Há {{item.themes?.length}} tema(s)
                 </mat-list-item>
-                <mat-list-item *ngFor="let theme of item.themes" (click)="detailInfo(theme)" class="cursor">
-                    <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
-                    <span fxFlexOffset="10px">
-                        <span mat-line> {{getTitle(theme.body)}}</span>
-                        <span mat-line> {{theme.author.login}}  - Votos :  {{theme.reactions['+1']}}</span>
-                    </span>
+                <mat-list-item *ngFor="let theme of item.themes">
+                    <div fxLayout="row" fxFlex="100">
+                        <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
+                        <div fxLayoutAlign="space-between" fxFlex>
+                            <span fxFlexOffset="10px">
+                                <span mat-line> {{getTitle(theme.body)}}</span>
+                                <span mat-line> {{theme.author.login}}</span>
+                            </span>
+                            <span fxFlexAlign="end" fxLayout="row">
+                                <button mat-icon-button color="warn"  *ngIf="votedInTheme(theme);else removeVote" (click)="removeVoteInTheme(theme)" matTooltip="Remover voto" >
+                                    <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_down_alt</mat-icon>
+                                </button>
+                                <ng-template #removeVote>
+                                    <button (click)="voteInTheme(theme)" mat-icon-button color="primary" matTooltip="Votar" >
+                                        <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_up_alt</mat-icon>
+                                    </button>            
+                                </ng-template>
+                                <button matTooltip="Ver info da palestra" (click)="detailInfo(theme)" fxFlexOffset="10px" mat-icon-button color="assent">
+                                    <mat-icon> format_list_bulleted </mat-icon>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </mat-list-item>    
             </mat-list>
         </mat-card-content>

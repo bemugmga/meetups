@@ -46,6 +46,7 @@ export class PublicGitService {
   getReactions(identifier, idComent) {
     const typeResponse = { headers: new HttpHeaders({
       Accept: 'application/vnd.github.squirrel-girl-preview+json',
+      Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
     })};
     return this.httpClient.get<Array<any>>(this.urlRepos + '/' + identifier + '/issues/comments/' + idComent + '/reactions', typeResponse);
   }
@@ -57,6 +58,14 @@ export class PublicGitService {
     })};
     return this.httpClient.post<any>(this.urlRepos + '/' + identifier + '/issues/comments/' +
                                     idComent + '/reactions', {content: '+1'}, authorization);
+  }
+
+  removeReaction(idVote) {
+    const authorization = { headers: new HttpHeaders({
+      Accept: 'application/vnd.github.squirrel-girl-preview+json',
+      Authorization : 'Bearer ' + sessionStorage.getItem('hashGit')
+    })};
+    return this.httpClient.delete<any>(environment.urlApiGit + '/reactions/' + idVote,  authorization);
   }
 
 }

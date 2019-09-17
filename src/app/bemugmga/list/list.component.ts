@@ -5,6 +5,7 @@ import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { ItemEventInsertComponent } from '../item-event-insert/item-event-insert.component';
 import { environment } from 'src/environments/environment';
 import { ItemThemeInsertComponent } from '../item-theme-insert/item-theme-insert.component';
+import { GitAccessService } from 'src/app/services/git-access.service';
 
 
 @Component({
@@ -18,7 +19,10 @@ export class ListComponent implements OnInit {
   public reactionSubmissions = {};
   public infoStatus = 'Carregando....';
 
-  constructor(private pubService: PublicGitService, private dialog: MatDialog, private zone: NgZone) {
+  constructor(private pubService: PublicGitService,
+              private dialog: MatDialog,
+              private zone: NgZone,
+              private accessGitService: GitAccessService) {
   }
 
   ngOnInit() {
@@ -29,19 +33,23 @@ export class ListComponent implements OnInit {
           element.themes = [];
           this.pubService.getComments(environment.repoBemug, element.number).subscribe(comments => {
             comments.forEach(comment => {
-              /*
-              this.pubService.getReactions(this.repository, comment.id).subscribe(reactions => {
-                reactions.forEach(reaction => {
-                  if ( !uniqueReactions.find(unique => unique.login === reaction.user.login) ) {
-                    uniqueReactions.push({ login: reaction.user.login, avatar: reaction.user.avatar_url });
-                  }
+              this.pubService.getReactions(environment.repoBemug, comment.id).subscribe(reactions => {
+                this.zone.run(() => {
+                  this.reactionSubmissions[comment.id] = [];
+                });
+                reactions.filter(item => item.content === '+1' ).forEach(item => {
+                  this.zone.run(() => {
+                    this.reactionSubmissions[comment.id].push(item);
+                  });
                 });
               }, errorReaction => {
-                console.error('Ocorreu um erro ao obter as reactions', this.repository, comment.id);
+                console.error('Ocorreu um erro ao obter as reactions', environment.repoBemug, comment.id);
               });
-              */
-              element.themes.push({id: comment.id, author:
-                {login: comment.user.login, avatar: comment.user.avatar_url}, reactions: comment.reactions, body: comment.body});
+
+              element.themes.push({
+                id: comment.id, author:
+                  { login: comment.user.login, avatar: comment.user.avatar_url }, reactions: comment.reactions, body: comment.body
+              });
             });
             element.themes.sort((itemA, itemB) => {
               return itemA.reactions['+1'] > itemB.reactions['+1'];
@@ -59,7 +67,7 @@ export class ListComponent implements OnInit {
       this.zone.run(() => {
         this.infoStatus = '';
       });
-    }, error =>  {
+    }, error => {
       this.zone.run(() => {
         this.infoStatus = 'Ocorreu um erro ao obter a lista de meetups';
       });
@@ -84,21 +92,64 @@ export class ListComponent implements OnInit {
   }
 
   public detailInfo(theme) {
-    const dialogRef = this.dialog.open(ItemDialogComponent, { data: theme, disableClose: true });
+    const dialogRef = this.dialog.open(ItemDialogComponent, { data: theme, disableClose: false });
     dialogRef.afterClosed().subscribe(result => {
       this.reloadInfos(result);
     });
   }
 
+  public votedInTheme(theme) {
+    return this.reactionSubmissions[theme.id] &&
+           this.reactionSubmissions[theme.id].some(item => item.user.login === this.accessGitService.getUser().login);
+  }
+
+  public voteInTheme(theme) {
+    this.pubService.voteReaction(environment.repoBemug, theme.id).subscribe(suc => {
+      this.reloadThisTheme(theme);
+    }, error => {
+      alert('Ocorreu um erro ao tentar votar');
+      console.log(error);
+    });
+  }
+
+  public removeVoteInTheme(theme) {
+    this.reactionSubmissions[theme.id].filter(item => item.user.login === this.accessGitService.getUser().login).forEach(item => {
+      this.pubService.removeReaction(item.id).subscribe(suc => {
+        this.reloadThisTheme(theme);
+      }, error => {
+        alert('Ocorreu um erro ao remover o voto');
+        console.log(error);
+      });
+    });
+  }
+
+  private reloadThisTheme(theme) {
+    this.pubService.getReactions(environment.repoBemug, theme.id).subscribe(reactions => {
+      this.zone.run(() => {
+        this.reactionSubmissions[theme.id] = [];
+      });
+      reactions.filter(item => item.content === '+1' ).forEach(item => {
+        this.zone.run(() => {
+          this.reactionSubmissions[theme.id].push(item);
+        });
+      });
+      this.zone.run(() => {
+        theme.reactions['+1'] = this.reactionSubmissions[theme.id].length;
+      });
+    }, errorReaction => {
+      console.error('Ocorreu um erro ao obter as reactions', environment.repoBemug, theme.id);
+    });
+  }
+
   public insertNewEvent() {
-    const dialogRef = this.dialog.open(ItemEventInsertComponent, {disableClose: true});
+    const dialogRef = this.dialog.open(ItemEventInsertComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
       this.reloadInfos(result);
     });
   }
 
   public insertNewTheme(info) {
-    const dialogRef = this.dialog.open(ItemThemeInsertComponent, {data: info, disableClose: true});
+    const dialogRef = this.dialog.open(ItemThemeInsertComponent, { data: info, disableClose: true });
     dialogRef.afterClosed().subscribe(result => {
       this.reloadInfos(result);
     });

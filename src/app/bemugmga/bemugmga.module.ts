@@ -7,7 +7,7 @@ import { ListComponent } from './list/list.component';
 import { MatToolbarModule, MatCardModule, MatButtonModule,
          MatListModule, MatIconModule,  MatTooltipModule,
          MatDialogModule, MatInputModule, MatFormFieldModule,
-         MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule, MatSelectModule } from '@angular/material';
+         MAT_DATE_LOCALE, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatBadgeModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -39,7 +39,8 @@ import { ItemThemeInsertComponent } from './item-theme-insert/item-theme-insert.
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBadgeModule
   ],
   providers: [
     HttpClient,

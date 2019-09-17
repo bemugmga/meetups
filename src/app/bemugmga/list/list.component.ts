@@ -111,8 +111,8 @@ export class ListComponent implements OnInit {
     this.pubService.voteReaction(environment.repoBemug, theme.id).subscribe(suc => {
       this.reloadThisTheme(theme);
     }, error => {
-      this.zone.run(() => { this.actionVote = false; });
       alert('Ocorreu um erro ao tentar votar');
+      this.reloadThisTheme(theme);
       console.log(error);
     });
   }
@@ -125,8 +125,8 @@ export class ListComponent implements OnInit {
       this.pubService.removeReaction(item.id).subscribe(suc => {
         this.reloadThisTheme(theme);
       }, error => {
-        this.zone.run(() => { this.actionVote = false; });
         alert('Ocorreu um erro ao remover o voto');
+        this.reloadThisTheme(theme);
         console.log(error);
       });
     });

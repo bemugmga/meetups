@@ -28,7 +28,7 @@ export class ItemThemeInsertComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form.get('name').setValue(this.gitUser.getUser());
+    this.form.get('name').setValue(this.gitUser.getUser().name);
   }
 
   addNewTheme() {

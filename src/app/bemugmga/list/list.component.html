@@ -30,27 +30,24 @@
                     Há {{item.themes?.length}} tema(s)
                 </mat-list-item>
                 <mat-list-item *ngFor="let theme of item.themes">
-                    <div fxLayout="row" fxFlex="100">
+                    <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between">
                         <img src="{{theme.author.avatar}}" mat-list-icon mat-card-avatar>
-                        <div fxLayoutAlign="space-between" fxFlex>
-                            <span fxFlexOffset="10px">
+                        <div fxLayout="row"  fxFlex="79" >
+                            <span fxFlex="100" style="cursor: pointer" matTooltip="Ver info da palestra" (click)="detailInfo(theme)" >
                                 <span mat-line> {{getTitle(theme.body)}}</span>
                                 <span mat-line> {{theme.author.login}}</span>
                             </span>
-                            <span fxFlexAlign="end" fxLayout="row">
-                                <button mat-icon-button color="warn" [disabled]="actionVote || item.locked" *ngIf="votedInTheme(theme);else removeVote" (click)="removeVoteInTheme(theme)" matTooltip="Remover voto" >
-                                    <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_down_alt</mat-icon>
-                                </button>
-                                <ng-template #removeVote>
-                                    <button (click)="voteInTheme(theme)" [disabled]="actionVote || item.locked" mat-icon-button color="primary" matTooltip="Votar" >
-                                        <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_up_alt</mat-icon>
-                                    </button>            
-                                </ng-template>
-                                <button matTooltip="Ver info da palestra" (click)="detailInfo(theme)" fxFlexOffset="10px" mat-icon-button color="assent">
-                                    <mat-icon> format_list_bulleted </mat-icon>
-                                </button>
-                            </span>
                         </div>
+                        <span fxLayout="row">
+                            <button mat-icon-button color="warn" [disabled]="actionVote || item.locked" *ngIf="votedInTheme(theme);else removeVote" (click)="removeVoteInTheme(theme)" matTooltip="Remover voto" >
+                                <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_down_alt</mat-icon>
+                            </button>
+                            <ng-template #removeVote>
+                                <button (click)="voteInTheme(theme)" [disabled]="actionVote || item.locked" mat-icon-button color="primary" matTooltip="Votar" >
+                                    <mat-icon matBadge="{{theme.reactions['+1']}}" matBadgePosition="above after" matBadgeOverlap="false">thumb_up_alt</mat-icon>
+                                </button>            
+                            </ng-template>
+                        </span>
                     </div>
                 </mat-list-item>    
             </mat-list>

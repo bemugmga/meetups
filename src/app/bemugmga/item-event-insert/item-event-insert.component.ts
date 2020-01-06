@@ -38,7 +38,7 @@ export class ItemEventInsertComponent implements OnInit {
       this.gitService.getAllIssues(environment.repoBemug).subscribe(suc => {
           let meetups = 1;
           if (suc.length > 0) {
-            meetups = suc[0].number;
+            meetups = suc[0].number - 1;
           }
           const values = this.form.value;
           const data = {
